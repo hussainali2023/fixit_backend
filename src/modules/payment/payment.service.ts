@@ -56,7 +56,8 @@ export async function createCheckoutSession(
       amount: booking.totalPrice,
       transactionId: session.id,
     },
-    update: { transactionId: session.id, status: "PENDING" },
+    update: { transactionId: session.id, status: "PENDING"
+     },
   });
 
   return { checkoutUrl: session.url };

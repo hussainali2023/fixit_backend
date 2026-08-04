@@ -10,6 +10,7 @@ import serviceRouter from "./modules/service/service.routes";
 import bookingRouter from "./modules/booking/booking.routes";
 import paymentRouter from "./modules/payment/payment.routes";
 import { webhook } from "./modules/payment/payment.controller";
+import reviewRouter from "./modules/review/review.routes";
 
 const app: Application = express();
 
@@ -19,15 +20,18 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.get("/", (_req, res) => {
-  res.send("FixItNow Backend Server is running 🔧");
+  res.send("FixItNow Server is running");
 });
 
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
+app.use("/api/admin/users", userRouter)
 app.use("/api/technicians", technicianRouter)
 app.use("/api/services", serviceRouter)
 app.use("/api/bookings", bookingRouter)
+app.use("/api/admin/bookings", bookingRouter)
 app.use("/api/payments", paymentRouter)
+app.use("/api/reviews", reviewRouter)
 
 app.use(notFoundHandler);
 app.use(globalErrorHandler);

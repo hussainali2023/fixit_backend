@@ -33,7 +33,7 @@ export async function updateBookingStatus(
 ) {
   const booking = await prisma.booking.findUnique({
     where: { id: bookingId },
-    include: { technician: true },
+    include: { technician: true, payment:true },
   });
 
   if (!booking) {

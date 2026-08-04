@@ -3,6 +3,7 @@ import { getCurrentUser, updateUserStatus } from "./user.service";
 import prisma from "../../lib/prisma";
 import { catchAsync } from "../../utils/catch-async";
 import { sendResponse } from "../../utils/send-response";
+import { AppError } from "../../utils/app-error";
 
 export const getMe = catchAsync(async (req: Request, res: Response) => {
   if (!req.user) {
@@ -44,3 +45,30 @@ export const editUserStatus = catchAsync(async (req: Request, res: Response) => 
     message: "User status updated successfully",
   });
 });
+
+// export const editUserStatus = catchAsync(async (req: Request, res: Response) => {
+//   const id = req.params.id as string;
+//   const { isBanned } = req.body;
+
+//   // Validate ID
+//   if (!id) {
+//     throw new AppError(400, 'User ID is required');
+//   }
+
+//   // Validate isBanned is provided and is boolean
+//   if (typeof isBanned !== 'boolean') {
+//     throw new AppError(400, 'isBanned must be a boolean value');
+//   }
+
+//   const user = await updateUserStatus(id, { isBanned });
+
+//   // Check if user exists
+//   if (!user) {
+//     throw new AppError(400, 'User not found');
+//   }
+
+//   return sendResponse(res, {
+//     data: { user },
+//     message: `User ${isBanned ? 'banned' : 'unbanned'} successfully`,
+//   });
+// });

@@ -90,6 +90,5 @@ export const webhook = catchAsync(async (req: Request, res: Response) => {
     }
   }
 
-  // always 200 once the signature checks out, otherwise stripe retries forever
   res.json({ received: true });
 });
