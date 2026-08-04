@@ -5,6 +5,7 @@ import userRouter from "./modules/user/user.routes";
 
 import { notFoundHandler } from "./middleware/not-found";
 import { globalErrorHandler } from "./middleware/global-error";
+import technicianRouter from "./modules/technician/technician.routes";
 
 const app: Application = express();
 
@@ -19,6 +20,7 @@ app.get("/", (_req, res) => {
 
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
+app.use("/api/technicians", technicianRouter)
 
 app.use(notFoundHandler);
 app.use(globalErrorHandler);
