@@ -7,6 +7,7 @@ import { notFoundHandler } from "./middleware/not-found";
 import { globalErrorHandler } from "./middleware/global-error";
 import technicianRouter from "./modules/technician/technician.routes";
 import serviceRouter from "./modules/service/service.routes";
+import bookingRouter from "./modules/booking/booking.routes";
 
 const app: Application = express();
 
@@ -23,7 +24,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 app.use("/api/technicians", technicianRouter)
 app.use("/api/services", serviceRouter)
-
+app.use("/api/bookings", bookingRouter)
 app.use(notFoundHandler);
 app.use(globalErrorHandler);
 
