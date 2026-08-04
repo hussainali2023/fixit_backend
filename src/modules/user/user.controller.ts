@@ -35,9 +35,9 @@ export const getUsers = catchAsync(async (_req: Request, res: Response) => {
 
 export const editUserStatus = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id as string;
-  const { isBanned, role } = req.body;
+  const { isBanned } = req.body;
 
-  const user = await updateUserStatus(id, { isBanned, role });
+  const user = await updateUserStatus(id, { isBanned });
 
   return sendResponse(res, {
     data: { user },
