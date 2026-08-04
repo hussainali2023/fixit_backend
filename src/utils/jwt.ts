@@ -1,35 +1,32 @@
-import jwt, { type JwtPayload,type SignOptions } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+import type { Role } from "../../prisma/generated/prisma/enums";
+import config from "../config";
 
-const createToken = (payload : JwtPayload, secret : string, expiresIn : SignOptions ) => {
-    const token = jwt.sign(
-        payload, 
-        secret, 
-        {
-            expiresIn
-        } as SignOptions
-    );
+export type UserJwtPayload = {
+  id: string;
+  email: string;
+  role: Role;
+};
 
-    return token;
+export function signAccessToken(payload: UserJwtPayload) {
+  return jwt.sign(payload, config.JWT_ACCESS_SECRET, { expiresIn: "5h" });
 }
 
-const verifyToken = (token : string, secret : string) => {
-   try {
-        const verifiedToken = jwt.verify(token, secret);
-        return {
-            success: true,
-            data: verifiedToken
-        };
-   } catch (error : any) {
-        console.log("Token verification failed:", error);
-        return {
-            success: false,
-            error : error.message
-        }
-   }
+export function signRefreshToken(payload: UserJwtPayload) {
+  return jwt.sign(payload, config.JWT_REFRESH_SECRET, { expiresIn: "7d" });
 }
 
+export function createTokenPair(payload: UserJwtPayload) {
+  return {
+    accessToken: signAccessToken(payload),
+    refreshToken: signRefreshToken(payload),
+  };
+}
 
-export const jwtUtils = {
-    createToken,
-    verifyToken
+export function verifyAccessToken(token: string) {
+  return jwt.verify(token, config.JWT_ACCESS_SECRET) as UserJwtPayload;
+}
+
+export function verifyRefreshToken(token: string) {
+  return jwt.verify(token, config.JWT_REFRESH_SECRET) as UserJwtPayload;
 }

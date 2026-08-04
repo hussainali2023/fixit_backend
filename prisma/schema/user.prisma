@@ -1,14 +1,22 @@
-model User {
-  id           String       @id @default(uuid())
-  name         String
-  email        String       @unique
-  password     String
-  role         Role         @default(CUSTOMER)
-  activeStatus ActiveStatus @default(ACTIVE)
-  phone        String?
-  address      String?
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+enum Role {
+  CUSTOMER
+  TECHNICIAN
+  ADMIN
+}
 
-  @@map("users")
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(CUSTOMER)
+  isBanned  Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  technicianProfile TechnicianProfile?
+  bookings          Booking[]
+  reviews           Review[]
 }

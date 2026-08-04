@@ -6,8 +6,11 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "start": "node dist/server.js",
-    "build":"tsup"
+    "test": "tsx --test src/**/*.test.ts",
+    "build": "prisma generate && tsup",
+    "deploy": "npm run build && vercel --prod",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev"
   },
   "keywords": [],
   "author": "",
@@ -36,6 +39,7 @@
     "http-status": "^2.1.0",
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.22.0",
-    "stripe": "^22.4.0"
+    "stripe": "^22.4.0",
+    "zod": "^4.4.3"
   }
 }

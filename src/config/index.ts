@@ -1,17 +1,22 @@
-import dotenv from "dotenv";
-import path from "path";
+import { configDotenv } from "dotenv";
+import { env } from "process";
 
-dotenv.config({ path: path.join(process.cwd(), ".env") });
+configDotenv({
+  quiet: true,
+});
 
-export default {
-  port: process.env.PORT || 5000,
-  database_url: process.env.DATABASE_URL,
-  app_url: process.env.APP_URL || "http://localhost:3000",
-  bcrypt_code: process.env.BCRYPT || 12,
-  jwt_access_secret: process.env.JWT_ACCESS_SECRET,
-  jwt_refresh_secret: process.env.JWT_REFRESH_SECRET,
-  jwt_access_expires_in: process.env.JWT_ACCESS_EXPIRES_IN,
-  jwt_refresh_expires_in: process.env.JWT_REFRESH_EXPIRES_IN,
-  stripe_secret_key: process.env.STRIPE_SECRET_KEY,
-  stripe_webhook_secret: process.env.STRIPE_WEBHOOK_SECRET
-};
+const config = {
+  NODE_ENV: env.NODE_ENV!,
+  PORT: env.PORT!,
+  DATABASE_URL: env.DATABASE_URL!,
+
+  JWT_ACCESS_SECRET: env.JWT_ACCESS_SECRET!,
+  JWT_REFRESH_SECRET: env.JWT_REFRESH_SECRET!,
+
+  STRIPE_SECRET_KEY: env.STRIPE_SECRET_KEY!,
+  STRIPE_WEBHOOK_SECRET: env.STRIPE_WEBHOOK_SECRET!,
+
+  CLIENT_URL: env.CLIENT_URL ?? "http://localhost:3000",
+}
+
+export default config

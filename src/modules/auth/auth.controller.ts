@@ -1,21 +1,32 @@
-import type { NextFunction, Request, Response } from "express";
-import { catchAsync } from "../../utils/catchAsync";
-import { sendResponse } from "../../utils/sendResponse";
-import status from "http-status";
-import { authService } from "./auth.services";
+import type { Request, Response } from "express";
+import { loginSchema, registerSchema } from "./auth.validation";
+import { loginUser, registerUser } from "./auth.service";
+import { sendResponse } from "../../utils/send-response";
+import { catchAsync } from "../../utils/catch-async";
 
-const registerUser = catchAsync(async (req: Request, res: Response) => {
-  const result = await authService.registerUser(req.body);
+export const register = catchAsync(async (req: Request, res: Response) => {
+  const input = registerSchema.parse(req.body);
 
-  sendResponse(res, {
-    success: true,
-    statusCode: status.CREATED,
-    message: "User registered successfully",
-    data: result,
-  });
+  const result = await registerUser(input);
+
+  sendResponse(
+    res,
+    { message: "User registered successfully", data: { user: result } },
+    201,
+  );
 });
 
+export const login = catchAsync(async (req: Request, res: Response) => {
+  const input = loginSchema.parse(req.body);
 
-export const authController = {
-    registerUser
-}
+  const result = await loginUser(input);
+
+  sendResponse(res, {
+    message: "Login successful",
+    data: {
+      user: result.user,
+      accessToken: result.accessToken,
+      refreshToken: result.refreshToken,
+    },
+  });
+});
