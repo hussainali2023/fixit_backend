@@ -22,7 +22,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Customer_1\",\n  \"email\": \"customer1@fix.com\",\n  \"password\": \"123456\",\n  \"role\": \"CUSTOMER\"\n}"
+              "raw": "{\n  \"name\": \"Customer_6\",\n  \"email\": \"customer6@fix.com\",\n  \"password\": \"123456\",\n  \"role\": \"CUSTOMER\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/register",
@@ -50,7 +50,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Technician_1\",\n  \"email\": \"technician1@fix.com\",\n  \"password\": \"123456\",\n  \"role\": \"TECHNICIAN\"\n}"
+              "raw": "{\n  \"name\": \"Technician_6\",\n  \"email\": \"technician6@fix.com\",\n  \"password\": \"123456\",\n  \"role\": \"TECHNICIAN\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/register",
@@ -76,7 +76,9 @@
                   "const res = pm.response.json();",
                   "if (res?.data?.accessToken) pm.collectionVariables.set('accessToken', res.data.accessToken);"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -90,7 +92,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"customer1@fix.com\",\n  \"password\": \"123456\"\n}"
+              "raw": "{\n  \"email\": \"customer6@fix.com\",\n  \"password\": \"123456\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/login",
@@ -116,7 +118,9 @@
                   "const res = pm.response.json();",
                   "if (res?.data?.accessToken) pm.collectionVariables.set('accessToken', res.data.accessToken);"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -130,7 +134,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"technician1@fix.com\",\n  \"password\": \"123456\"\n}"
+              "raw": "{\n  \"email\": \"technician6@fix.com\",\n  \"password\": \"123456\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/login",
@@ -235,7 +239,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/services?location=dhaka",
+              "raw": "{{baseUrl}}/api/services?location=gulshan",
               "host": [
                 "{{baseUrl}}"
               ],
@@ -246,7 +250,7 @@
               "query": [
                 {
                   "key": "location",
-                  "value": "dhaka"
+                  "value": "gulshan"
                 }
               ]
             }
@@ -302,7 +306,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Water Pipe Repair\",\n  \"category\": \"Plumbing\",\n  \"description\": \"Fast emergency response for broken pipes and water leaks.\",\n  \"price\": 1800\n}"
+              "raw": "{\n  \"name\": \"Room Poriskar\",\n  \"category\": \"Cleaning\",\n  \"description\": \"Puro Room poriskar,kono dhulo bali thakbena ekdom kacher moto soccho kore debo.\",\n  \"price\": 8000\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/services",
@@ -904,17 +908,17 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"isBanned\": false\n}"
+              "raw": "{\n  \"isBanned\": true\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/api/users/admin/{{userId}}",
+              "raw": "{{baseUrl}}/api/admin/users/{{userId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
-                "users",
                 "admin",
+                "users",
                 "{{userId}}"
               ]
             }
