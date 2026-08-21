@@ -39,13 +39,25 @@ export const getMyBookings = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-export const getBookings = catchAsync(async (_req: Request, res: Response) => {
+export const getBookings = catchAsync(async (req: Request, res: Response) => {
+  const where: any = {};
+  if (req.user?.role === "TECHNICIAN") {
+    const techProfile = await prisma.technicianProfile.findUnique({
+      where: { userId: req.user.id },
+    });
+    if (techProfile) {
+      where.technicianId = techProfile.id;
+    }
+  }
+
   const bookings = await prisma.booking.findMany({
+    where,
     include: {
       service: true,
       customer: { omit: { password: true } },
       technician: { include: { user: { omit: { password: true } } } },
       payment: true,
+      review: true,
     },
     orderBy: { createdAt: "desc" },
   });

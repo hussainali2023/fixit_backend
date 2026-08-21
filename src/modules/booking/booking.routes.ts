@@ -12,7 +12,7 @@ const bookingRouter: IRouter = Router();
 
 bookingRouter.post("/", auth("CUSTOMER"), addBooking);
 bookingRouter.get("/my", auth("CUSTOMER"), getMyBookings);
-bookingRouter.get("/", auth("ADMIN"), getBookings);
+bookingRouter.get("/", auth("ADMIN", "TECHNICIAN"), getBookings);
 bookingRouter.get("/:id", auth(), getBookingDetails);
 bookingRouter.patch("/status/:id", auth("CUSTOMER", "TECHNICIAN", "ADMIN"), changeBookingStatus);
 
