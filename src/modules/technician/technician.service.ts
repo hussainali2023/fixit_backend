@@ -25,15 +25,22 @@ export async function getTechnicianById(id: string) {
 }
 
 export async function updateTechnicianProfile(userId: string, input: UpdateProfileInput) {
-  const profile = await prisma.technicianProfile.findUnique({ where: { userId } });
-
-  if (!profile) {
-    throw new AppError(404, "Technician profile not found");
+  const profilePhoto = (input as any).profilePhoto || (input as any).image;
+  if (profilePhoto) {
+    await prisma.user.update({
+      where: { id: userId },
+      data: { image: profilePhoto },
+    });
   }
+
+  const { image: _img, ...profileData } = input as any;
 
   return prisma.technicianProfile.update({
     where: { userId },
-    data: input as Prisma.TechnicianProfileUpdateInput,
+    data: {
+      ...profileData,
+      ...(profilePhoto ? { profilePhoto } : {}),
+    } as Prisma.TechnicianProfileUpdateInput,
     include: { user: { omit: { password: true } } },
   });
 }

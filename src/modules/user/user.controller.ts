@@ -46,6 +46,38 @@ export const editUserStatus = catchAsync(async (req: Request, res: Response) => 
   });
 });
 
+export const updateMe = catchAsync(async (req: Request, res: Response) => {
+  if (!req.user) {
+    return sendResponse(res, { message: "User not authenticated" }, 401);
+  }
+
+  const { name, image, phone, profilePhoto } = req.body;
+  const photo = profilePhoto || image;
+
+  const user = await prisma.user.update({
+    where: { id: req.user.id },
+    data: {
+      ...(name ? { name } : {}),
+      ...(photo ? { image: photo } : {}),
+      ...(phone ? { phone } : {}),
+    },
+    omit: { password: true },
+  });
+
+  // If user is a technician, sync profilePhoto as well
+  if (user.role === "TECHNICIAN" && photo) {
+    await prisma.technicianProfile.updateMany({
+      where: { userId: user.id },
+      data: { profilePhoto: photo },
+    });
+  }
+
+  return sendResponse(res, {
+    data: { user },
+    message: "Profile updated successfully",
+  });
+});
+
 // export const editUserStatus = catchAsync(async (req: Request, res: Response) => {
 //   const id = req.params.id as string;
 //   const { isBanned } = req.body;

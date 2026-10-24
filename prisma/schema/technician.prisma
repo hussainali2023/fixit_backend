@@ -6,6 +6,7 @@ model TechnicianProfile {
   experience  Int
   location    String
   availability String  @default("Mon-Fri 9AM-5PM")
+  profilePhoto String?
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

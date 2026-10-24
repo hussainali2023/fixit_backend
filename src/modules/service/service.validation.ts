@@ -5,6 +5,7 @@ export const createServiceSchema = z.object({
   description: z.string().trim().min(1, "description is required"),
   price: z.number().positive("price must be greater than 0"),
   category: z.string().trim().optional().default("General"),
+  image: z.string().trim().optional(),
 });
 
 export const updateServiceSchema = createServiceSchema.partial();

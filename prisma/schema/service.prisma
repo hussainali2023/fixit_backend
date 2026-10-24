@@ -4,6 +4,7 @@ model Service {
   description   String
   price         Float
   category      String   @default("General")
+  image         String?
   technicianId  String
   technician    TechnicianProfile @relation(fields: [technicianId], references: [id])
 

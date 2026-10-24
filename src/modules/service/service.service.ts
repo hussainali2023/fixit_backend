@@ -31,6 +31,7 @@ export async function createService(userId: string, input: CreateServiceInput) {
       description: input.description,
       price: input.price,
       category: input.category ?? "General",
+      image: (input as any).image ?? null,
       technicianId: technicianProfile.id,
     },
     include: { technician: { include: { user: { omit: { password: true } } } } },

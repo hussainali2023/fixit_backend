@@ -5,6 +5,8 @@ export const updateProfileSchema = z.object({
   experience: z.number().nonnegative().optional(),
   location: z.string().trim().min(1).optional(),
   availability: z.string().trim().min(1).optional(),
+  profilePhoto: z.string().trim().optional(),
+  image: z.string().trim().optional(),
 });
 
 export const updateAvailabilitySchema = z.object({

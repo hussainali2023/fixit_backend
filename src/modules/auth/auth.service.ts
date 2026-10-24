@@ -14,6 +14,7 @@ export async function registerUser(input: RegisterInput) {
   }
 
   const hashedPassword = await bcrypt.hash(input.password, 10);
+  const profilePhoto = (input as any).profilePhoto || (input as any).image || null;
 
   const user = await prisma.user.create({
     data: {
@@ -21,6 +22,7 @@ export async function registerUser(input: RegisterInput) {
       email: input.email,
       password: hashedPassword,
       role: input.role,
+      image: profilePhoto,
     },
     omit: {
       password: true,
@@ -34,6 +36,7 @@ export async function registerUser(input: RegisterInput) {
         skills: "General Technician",
         experience: 1,
         location: "Default Location",
+        profilePhoto: profilePhoto,
       },
     });
   }

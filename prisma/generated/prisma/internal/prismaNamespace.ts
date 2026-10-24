@@ -952,6 +952,7 @@ export const ServiceScalarFieldEnum = {
   description: 'description',
   price: 'price',
   category: 'category',
+  image: 'image',
   technicianId: 'technicianId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -967,6 +968,7 @@ export const TechnicianProfileScalarFieldEnum = {
   experience: 'experience',
   location: 'location',
   availability: 'availability',
+  profilePhoto: 'profilePhoto',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -980,6 +982,7 @@ export const UserScalarFieldEnum = {
   email: 'email',
   password: 'password',
   role: 'role',
+  image: 'image',
   isBanned: 'isBanned',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1002,6 +1005,14 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 

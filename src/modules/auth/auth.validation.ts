@@ -8,6 +8,8 @@ export const loginSchema = z.object({
 export const registerSchema = loginSchema.extend({
   name: z.string().trim().min(1, "name is required"),
   role: z.enum(["CUSTOMER", "TECHNICIAN"]).default("CUSTOMER"),
+  image: z.string().trim().optional(),
+  profilePhoto: z.string().trim().optional(),
 });
 
 export type LoginInput = z.infer<typeof loginSchema>;
